@@ -1,0 +1,22 @@
+{
+  "name": "chatify",
+  "version": "1.0.0",
+  "description": "I am craeting this repo for the application Chatify that is real time chat applicaton developed on the mern stack with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "build" : "npm install --prefix FrontEnd && npm install --prefix BackEnd && npm run build --prefix FrontEnd",
+    "serve": "npm run start --prefix BackEnd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbdulHannnan/Chatify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AbdulHannnan/Chatify/issues"
+  },
+  "homepage": "https://github.com/AbdulHannnan/Chatify#readme"
+}
