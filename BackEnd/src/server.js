@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import authRoutes from '../routes/auth.routes.js';
+import messageRoutes from '../routes/message.routes.js';
 
 const PORT= process.env.PORT;
 
@@ -12,6 +13,7 @@ const app = express();
 
 
 app.use("/api/auth", authRoutes);
+app.use('/api/message', messageRoutes);
 
 // Ensure you have something like this:
 app.get('/', (req, res) => {
