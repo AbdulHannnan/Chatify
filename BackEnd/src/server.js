@@ -15,6 +15,8 @@ const app = express();
 
 const __dirname = path.resolve();
 
+app.use(express.json()); //req body parser for json data
+
 
 app.use("/api/auth", authRoutes);
 app.use('/api/message', messageRoutes);

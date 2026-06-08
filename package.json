@@ -4,8 +4,10 @@
   "description": "I am craeting this repo for the application Chatify that is real time chat applicaton developed on the mern stack with socket.io",
   "main": "index.js",
   "scripts": {
-    "build" : "npm install --prefix FrontEnd && npm install --prefix BackEnd && npm run build --prefix FrontEnd",
-    "serve": "npm run start --prefix BackEnd &&"
+    "build": "npm install --prefix FrontEnd && npm install --prefix BackEnd && npm run build --prefix FrontEnd",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run start --prefix BackEnd",
+    "client": "npm run dev --prefix FrontEnd"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/AbdulHannnan/Chatify/issues"
   },
-  "homepage": "https://github.com/AbdulHannnan/Chatify#readme"
+  "homepage": "https://github.com/AbdulHannnan/Chatify#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
 }
