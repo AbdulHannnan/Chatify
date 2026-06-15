@@ -4,7 +4,8 @@ import { signup } from '../controller/auth.controler.js';
 const router = express.Router();
 
 
-router.post('/signup', signup);
+router.post('/signup', signup)
+
 
 router.get('/login', (req, res) => {
     res.send('Login route');

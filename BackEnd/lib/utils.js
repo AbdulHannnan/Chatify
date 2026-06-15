@@ -1,13 +1,22 @@
 import jwt from 'jsonwebtoken';
 
 export const generateToken = (userId, res) => {
-const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is missing in .env file');
+  }
 
-res.cookie('jwt', token, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in Milliseconds
-    httpOnly: true, // prevent from XSS atcak 
-    sameSite: 'strict', // prevent from CSRF attack
-    secure : process.env.NODE_ENV === 'development' ? false : true // set secure flag in production
-});
-return token;
-}
+  const token = jwt.sign(
+    { id: String(userId) },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  res.cookie('jwt', token, {
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: process.env.NODE_ENV === 'production',
+  });
+
+  return token;
+};
