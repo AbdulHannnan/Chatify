@@ -23,8 +23,29 @@ export const signup = async (req, res) => {
         }
 
         // converting the password to hash
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(Password, salt);
+        const newUser = new User({
+            FullName,
+            Email,
+            Password: hashedPassword
+        });
+        if(newUser){
+            generateToken(newUser._id, res);
+            await newUser.save();
+            return res.status(201).json({
+                id: newUser._id,
+                FullName: newUser.FullName,
+                Email: newUser.Email,
+                message: 'User created successfully' });
+        }else{
+            return res.status(400).json({ message: 'Invalid user data' });
+        }
     }
     catch(error){
+        console.error(error);
+        return res.status(500).json({ message: ' Internal Server error' });
         
     };
 }
