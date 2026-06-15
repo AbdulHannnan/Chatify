@@ -1,4 +1,6 @@
-import User from '../models/user.model.js';
+import User from '../models/User.js';
+import bcrypt from 'bcryptjs';
+import { generateToken } from '../lib/utils.js';
 
 export const signup = async (req, res) => {
     const { FullName, Email, Password } = req.body;
@@ -32,12 +34,13 @@ export const signup = async (req, res) => {
             Password: hashedPassword
         });
         if(newUser){
-            generateToken(newUser._id, res);
+            const token = generateToken(newUser._id, res);
             await newUser.save();
             return res.status(201).json({
                 id: newUser._id,
                 FullName: newUser.FullName,
                 Email: newUser.Email,
+                token,
                 message: 'User created successfully' });
         }else{
             return res.status(400).json({ message: 'Invalid user data' });
