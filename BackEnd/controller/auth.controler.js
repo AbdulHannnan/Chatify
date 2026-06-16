@@ -43,9 +43,13 @@ export const signup = async (req, res) => {
       password: hashedPassword
     });
 
-    await newUser.save();
+    // await newUser.save();
 
-    const token = generateToken(newUser._id, res);
+    // const token = generateToken(newUser._id, res);
+
+    // After the CR review 
+    const savedUser = await newUser.save();
+    generateToken(savedUser._id, res);
 
     return res.status(201).json({
       id: newUser._id,
