@@ -4,12 +4,12 @@ const connectDB = async ()=>{
     try{
 
         // After the CodeRabit Review 
-        const {MONGO_URI} = process.env;
+        const {MONGO_URI} = ENV;
         if(!MONGO_URI){
             throw new Error('MONGO_URI is missing in .env file');
         }
 
-        mongoose.connect(process.env.MONGO_URI);
+        mongoose.connect(ENV.MONGO_URI);
         console.log('MongoDB connected successfully:', mongoose.connection.host);
     }
     catch(error){

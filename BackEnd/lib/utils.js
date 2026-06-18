@@ -1,17 +1,18 @@
 import jwt from 'jsonwebtoken';
+import { ENV } from './env';
 
 export const generateToken = (userId, res) => {
 
   // After the CodeRabit Review
 
-  const { JWT_SECRET } = process.env;
+  const { JWT_SECRET } = ENV;
   if(!JWT_SECRET) {
     throw new Error('JWT_SECRET is missing in .env file');
   }
 
   const token = jwt.sign(
     { id: String(userId) },
-    process.env.JWT_SECRET,
+    ENV.JWT_SECRET,
     { expiresIn: '7d' }
   );
 
@@ -19,7 +20,7 @@ export const generateToken = (userId, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     sameSite: 'strict',
-    secure: process.env.NODE_ENV === 'production',
+    secure: ENV.NODE_ENV === 'production',
   });
 
   return token;

@@ -8,8 +8,9 @@ import connectDB from '../lib/db.js';
 
 import authRoutes from '../routes/auth.routes.js';
 import messageRoutes from '../routes/message.routes.js';
+import { ENV } from '../lib/env.js';
 
-const PORT= process.env.PORT;
+const PORT= ENV.PORT;
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use('/api/message', messageRoutes);
 
 
 // Make ready for the Deployment
-if(process.env.NODE_ENV === 'production') {
+if(ENV.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../FrontEnd/dist')))
     app.get('*', ( _ , res) => {
         res.sendFile(path.join(__dirname, '../FrontEnd/dist/index.html'))

@@ -52,7 +52,7 @@ export const signup = async (req, res) => {
 
     // 2. Send the welcome email BEFORE sending the final response
     try {
-      await sendWelcomeEmail(savedUser.email, savedUser.fullName, process.env.CLIENT_URL);
+      await sendWelcomeEmail(savedUser.email, savedUser.fullName, process.en.CLIENT_URL);
     } catch (emailError) {
       // We catch this separately so that if the email fails, the user signup doesn't crash
       console.error('Error sending welcome email:', emailError.message);
