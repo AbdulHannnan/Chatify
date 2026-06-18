@@ -1,7 +1,7 @@
-import {resend} from 'resend';
+import {Resend} from 'resend';
 import dotenv from 'dotenv';
 dotenv.config();
-import {welcomeEmailTemplate} from '../Email/welcomEmailTemplate.js';
+import {WelcomeEmailTemplate} from '../Email/EmailTemplate.js';
 
 export const resendClient = new Resend(process.env.RESEND_API_KEY);
 

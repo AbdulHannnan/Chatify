@@ -1,6 +1,8 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../lib/utils.js';
+import dotenv from 'dotenv';
+import { sendWelcomeEmail } from '../Email/EmailHandler.js';
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -43,18 +45,24 @@ export const signup = async (req, res) => {
       password: hashedPassword
     });
 
-    // await newUser.save();
-
-    // const token = generateToken(newUser._id, res);
-
-    // After the CR review 
     const savedUser = await newUser.save();
-    generateToken(savedUser._id, res);
+    
+    // 1. Assign the generated token to a variable so you can use it in the response below
+    const token = generateToken(savedUser._id, res);
 
+    // 2. Send the welcome email BEFORE sending the final response
+    try {
+      await sendWelcomeEmail(savedUser.email, savedUser.fullName, process.env.CLIENT_URL);
+    } catch (emailError) {
+      // We catch this separately so that if the email fails, the user signup doesn't crash
+      console.error('Error sending welcome email:', emailError.message);
+    }
+
+    // 3. Send the final success response
     return res.status(201).json({
-      id: newUser._id,
-      fullName: newUser.fullName,
-      email: newUser.email,
+      id: savedUser._id,
+      fullName: savedUser.fullName,
+      email: savedUser.email,
       token,
       message: 'User created successfully'
     });

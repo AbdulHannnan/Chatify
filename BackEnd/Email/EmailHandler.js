@@ -1,7 +1,7 @@
-import {resendClient, sendor} from '../lib/resend.js';
+import {resendClient, sender} from '../lib/resend.js';
 import dotenv from 'dotenv';
 dotenv.config();
-import {welcomeEmailTemplate} from '../Email/EmailTemplates.js';
+import {WelcomeEmailTemplate} from '../Email/EmailTemplate.js';
 
 export const sendWelcomeEmail = async (email, name, clientURL) => {
     const {data, error} = await resendClient.emails.send({
