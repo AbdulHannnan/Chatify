@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { ENV } from './env.js';
 
 const connectDB = async ()=>{
     try{
@@ -9,7 +10,7 @@ const connectDB = async ()=>{
             throw new Error('MONGO_URI is missing in .env file');
         }
 
-        mongoose.connect(ENV.MONGO_URI);
+        await mongoose.connect(ENV.MONGO_URI);
         console.log('MongoDB connected successfully:', mongoose.connection.host);
     }
     catch(error){
