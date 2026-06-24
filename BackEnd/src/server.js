@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -16,6 +17,7 @@ const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json()); //req body parser for json data
+app.use(cookieParser()); //req cookie parser for cookies
 
 
 app.use("/api/auth", authRoutes);
