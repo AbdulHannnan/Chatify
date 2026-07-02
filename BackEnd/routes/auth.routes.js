@@ -11,4 +11,8 @@ router.get('/logout', logout);
 
 router.put('/update-profile', protectRoute, updateProfile);
 
+router.get('/protected', protectRoute, (req, res) => {
+  res.status(200).json({ message: 'You have accessed a protected route', user: req.user });
+});
+
 export default router;
