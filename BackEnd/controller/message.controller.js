@@ -36,3 +36,34 @@ export const getMessagesByUserId = async (req, res) => {
 
     }
 }
+
+export const sendMessage = async (req, res) => {
+    try {
+        const senderId = req.user._id;
+        const { id: receiverId } = req.params;
+        const { text , image } = req.body;
+
+        let imageUrl ;
+        if(image){
+            const uploadResponse = await cloudinary.uploader.upload(image, {
+                folder: "chatify",
+            });
+            imageUrl = uploadResponse.secure_url;
+        }
+
+        const newMessage = new Message({
+            senderId,
+            receiverId,
+            text,
+            image: imageUrl || null,
+        });
+        await newMessage.save();
+        res.status(201).json(newMessage);
+
+        //tode : send the message to the receiver if they are online
+
+    } catch (error) {
+        console.log("Error in sendMessage:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
