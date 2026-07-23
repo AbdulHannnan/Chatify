@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 router.get("/contacts" , protectRoute ,  getAllContacts);
-// router.get("/chats", getChatPartners);
+router.get("/chats", protectRoute, getChatPartners);
 router.get("/:id" ,protectRoute ,  getMessagesByUserId);
 router.post("/send/:id", protectRoute,  sendMessage);
 
