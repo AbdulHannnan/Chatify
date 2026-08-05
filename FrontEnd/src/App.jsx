@@ -3,6 +3,7 @@ import { Routes , Route } from 'react-router-dom'
 import chatPage from './pages/chatPage'
 import loginPage from './pages/loginPage'
 import signUpPage from './pages/signUpPage'
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to={"/"} />} />
           </Routes>
           
+      <Toaster />    
   </div>
   )
 }
