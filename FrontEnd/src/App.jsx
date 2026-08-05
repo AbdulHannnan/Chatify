@@ -7,6 +7,13 @@ import signUpPage from './pages/signUpPage'
 
 
 function App() {
+
+  const { checkAuth, isCheckingAuth, authUser } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
 
      <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
